@@ -1,0 +1,65 @@
+{% extends 'entry/header.html' %}
+
+<script>
+	{% block jquery %}
+		{{ block.super }}
+		$('#myModal').on('shown.bs.modal', function () {
+  			$('#myInput').focus()
+		})
+
+		$(document).on('click', 'button', function(){
+			var newId = String(this.id)
+			if(newId.includes("up")){
+				newId = newId.replace('up', 'quant')
+				document.getElementById(newId).innerHTML++
+			}
+			if(newId.includes("down")){
+				newId = newId.replace('down', 'quant')
+				if(document.getElementById(newId).innerHTML != 0){
+					document.getElementById(newId).innerHTML--
+				}
+			}
+		})
+	{% endblock %}
+</script>
+
+{% block content %}
+	{% for beer in object_list %}
+		<div class = 'col-md-3'>
+			<div class="well">
+				<h3>{{beer.name}}
+					<span class="btn-group-vertical" role= "group" id = 'myButtons'>
+						<button type="button" id = {{beer.name}}up class="btn btn-default"> 
+							<span class="glyphicon glyphicon-chevron-up"></span>
+						</button>
+						<button type="button" id = {{beer.name}}down class="btn btn-default">
+							<span class="glyphicon glyphicon-chevron-down"></span>
+						</button>
+					</span>
+				</h3>
+			</div>
+		</div>
+	{% endfor %}
+	<br>
+	<br>
+	<form action="{% url 'entry:postSale' saleDat %}" method="post">
+		{% csrf_token %}
+		<table class="table table-bordered">
+			<thead>
+				<td style="color:white">Beer</td>
+				<td style="color:white">Price</td>
+				<td style="color:white">Quantity</td>
+			</thead>
+			<tbody>
+				{% for beer in object_list %}
+					<tr>
+						<td style="color:white">{{ beer.name }}</td>
+						<td style="color:white">{{ beer.price }}</td>
+						<span class="td" style="color:white"><input type="number" id = {{beer.name}}quant value="0"/></span>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
+	<button type='button' class="btn btn-primary" id="submit">Submit</button>
+{% endblock %}

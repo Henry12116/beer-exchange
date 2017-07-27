@@ -1,0 +1,73 @@
+{% extends 'entry/header.html' %}
+
+{% block content %}
+<div class = "row">
+	<div class = "col-md-6">
+		<table class="table table-bordered" style="width:100%">
+			<thead class="table-head">
+				<th>Beer</th>
+				<th>Price</th>
+				<th>Change</th>
+				<th>ABV (%)</th>
+			</thead>
+			<tbody>
+				{% for beer in object_list|slice:":5" %}
+					<tr class="table-entry">
+						<td >{{ beer.name }}</td>
+						<td >{{ beer.price }}</td>
+						{% if beer.icon > 0 %}
+							<td>
+								<p style="color:lime">{{beer.priceChange}}
+									<span class='glyphicon glyphicon-triangle-top' aria-hidden="true" style="color:lime"></span>
+								</p>
+							</td>
+						{% endif %}
+						{% if beer.icon < 0 %}
+							<td>
+								<p style="color:red">{{beer.priceChange}}
+									<span class='glyphicon glyphicon-triangle-bottom' aria-hidden="true" style="color:red"></span>
+								</p>
+							</td>
+						{% endif %}
+						<td> {{ beer.ABV }} </td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<div class = "col-md-6">
+		<table class="table table-bordered" style="width:100%">
+			<thead class="table-head">
+				<th>Beer</th>
+				<th>Price</th>
+				<th>Change</th>
+				<th>ABV (%)</th>
+			</thead>
+			<tbody>
+				{% for beer in object_list|slice:"5:" %}
+					<tr class="table-entry">
+						<td >{{ beer.name }}</td>
+						<td >{{ beer.price }}</td>
+						{% if beer.icon > 0 %}
+							<td>
+								<p style="color:lime">{{beer.priceChange}}
+									<span class='glyphicon glyphicon-triangle-top' aria-hidden="true" style="color:lime"></span>
+								</p>
+							</td>
+						{% endif %}
+						{% if beer.icon < 0 %}
+							<td>
+								<p style="color:red">{{beer.priceChange}}
+									<span class='glyphicon glyphicon-triangle-bottom' aria-hidden="true" style="color:red"></span>
+								</p>
+							</td>
+						{% endif %}
+						<td> {{beer.ABV }} </td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+<div class = "row">
+{% endblock %}

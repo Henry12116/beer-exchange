@@ -1,0 +1,43 @@
+{% extends 'entry/header.html' %}
+
+<script>
+	{% block jquery %}
+		{{ block.super }}
+		$(document).on('click', 'button', function(){
+			var newId = String(this.id)
+			if(newId.includes("up")){
+				newId = newId.replace('up', 'quant')
+				document.getElementById(newId).value++
+			}
+			if(newId.includes("down")){
+				newId = newId.replace('down', 'quant')
+				if(document.getElementById(newId).value != 0){
+					document.getElementById(newId).value--
+				}
+			}
+		})
+	{% endblock %}
+</script>
+
+{% block content %}
+	<form action="" method="post">
+	{% csrf_token %}
+	{% for beer in object_list %}
+	<div class="row">
+		<div class = 'col-md-3'>
+			<div class="input-group input-group-lg">
+				<span class='input-group-btn' >
+					<button class="btn btn-default btn-block" type="button" id={{beer.name}}up>{{beer.name}}</button>
+				</span>
+					<input type="text" class="form-control input-lg" id = {{beer.name}}quant min=0 value='0'/>
+				<span class='input-group-btn'>
+					<button class="btn btn-default btn-block" type="button" id={{beer.name}}down>-</button>
+				</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+	</form>
+{% endblock %}

@@ -1,0 +1,25 @@
+table {
+	color: white;
+	font-family: 'Roboto Slab', serif;
+}
+
+.table-head{
+  font-size: 40px;
+}
+
+.table-entry{
+	font-size: 30px;
+}
+
+.banner{
+	font-family: 'Roboto Slab', serif;
+	color: white;
+	font-size: 120px;
+	margin-right: 20%;
+	margin-top: 3%;
+}
+
+#icon{
+	max-height:300px;
+}
+
